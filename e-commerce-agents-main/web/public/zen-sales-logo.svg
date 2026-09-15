@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 90" fill="none">
+  <defs>
+    <linearGradient id="salesGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="salesDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Icon Mark -->
+  <rect x="5" y="5" width="80" height="80" rx="18" fill="url(#salesDark)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  <path d="M26 30 H66 C70 30 74 34 74 38 V56 C74 60 70 64 66 64 H40 L26 72 V30 Z" stroke="url(#salesGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="42" cy="47" r="3" fill="#10B981"/>
+  <circle cx="52" cy="47" r="3" fill="#06B6D4"/>
+  <circle cx="62" cy="47" r="3" fill="#3B82F6"/>
+
+  <!-- Wordmark -->
+  <text x="100" y="44" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" letter-spacing="1.5">ZEN <tspan fill="#34D399" font-weight="600">SALES</tspan></text>
+  <text x="100" y="66" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" letter-spacing="3">OMNICHANNEL AI AGENT</text>
+</svg>

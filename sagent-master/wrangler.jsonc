@@ -1,0 +1,92 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "whatsapp-ai-agent",
+	"account_id": "568051052fcb248c756d306dece6cfb7",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-12-01",
+	"observability": {
+		"enabled": true
+	},
+	"workers_dev": true,
+
+	// D1 Database for business data, products, leads
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "whatsapp-ai-agent-db",
+			"database_id": "7f289e64-10ef-47cb-b27e-376d81ad2366"
+		}
+	],
+
+	// KV Namespace for conversation history and sessions
+	"kv_namespaces": [
+		{
+			"binding": "CONVERSATIONS",
+			"id": "d2cf96c706c14823813c1d5f957ef63e"
+		}
+	],
+
+	// R2 Bucket for product images
+	"r2_buckets": [
+		{
+			"binding": "PRODUCT_IMAGES",
+			"bucket_name": "product-images"
+		}
+	],
+
+	// Durable Objects for atomic conversation state (C4 fix)
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "CONVERSATION_DO",
+				"class_name": "ConversationDO"
+			}
+		]
+	},
+
+	// DO migrations - required for first deploy
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": ["ConversationDO"]
+		}
+	],
+
+	// Vectorize for semantic product search
+	"vectorize": [
+		{
+			"binding": "PRODUCT_VECTORS",
+			"index_name": "product-embeddings"
+		}
+	],
+
+	// Workers AI for embeddings
+	"ai": {
+		"binding": "AI"
+	},
+
+	// Custom domain for webhook (Meta WhatsApp callback)
+	"routes": [
+		{
+			"pattern": "agent.ularkimsanov.com",
+			"custom_domain": true
+		}
+	],
+
+	// Cron triggers for background tasks
+	"triggers": {
+		"crons": [
+			"0 3 * * *",    // Daily 3 AM UTC: Conversation summarization
+			"0 8 * * *",    // Daily 8 AM UTC: Daily digest emails
+			"0 9 * * 1",    // Monday 9 AM UTC: Weekly digest + FAQ generation
+			"0 */4 * * *"   // Every 4 hours: Smart follow-up check
+		]
+	}
+
+	// Secrets (set via `wrangler secret put`):
+	// - OPENAI_API_KEY
+	// - WHATSAPP_ACCESS_TOKEN
+	// - WHATSAPP_PHONE_NUMBER_ID
+	// - WHATSAPP_VERIFY_TOKEN
+	// - CLEANUP_SECRET (C2 security fix - cleanup endpoint auth)
+}

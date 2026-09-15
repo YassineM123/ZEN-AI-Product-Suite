@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.*
+
+# Build outputs and framework caches
+dist/
+build/
+.next/
+out/
+.vercel/
+.turbo/
+.cache/
+coverage/
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.minimal
+
+# Local runtime state
+.wrangler/
+.wrangler/**
+*.local
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Generated archives and local artifacts
+*.tgz
+*.zip
+*.tar
+*.tar.gz

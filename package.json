@@ -1,0 +1,24 @@
+{
+  "name": "zen-ai-suite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ZEN AI Suite — Enterprise Multi-Agent Business Solutions by ZEN Groupe",
+  "scripts": {
+    "dev:market": "cd TradingAgents-main/web && npm run dev",
+    "dev:commerce": "cd e-commerce-agents-main/web && pnpm dev --port 3000",
+    "dev:sales": "cd sagent-master/dashboard && npm run dev -- -p 3001",
+    "build:market": "cd TradingAgents-main/web && npm run build",
+    "build:commerce": "cd e-commerce-agents-main/web && pnpm build",
+    "build:sales": "cd sagent-master/dashboard && npm run build"
+  },
+  "keywords": [
+    "zen-groupe",
+    "multi-agent",
+    "market-intelligence",
+    "commerce-intelligence",
+    "sales-agent",
+    "ai"
+  ],
+  "author": "ZEN Groupe <contact@zen-groupe.fr>",
+  "license": "UNLICENSED"
+}
