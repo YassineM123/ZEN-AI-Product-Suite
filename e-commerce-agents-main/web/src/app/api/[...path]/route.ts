@@ -332,6 +332,45 @@ async function proxy(req: NextRequest): Promise<Response> {
       });
     }
 
+    if (pathname.includes("/profile") || pathname.includes("/users/me")) {
+      return Response.json({
+        id: "usr-zen-01",
+        name: "Alexandre Mercier",
+        email: "executive@zen-groupe.fr",
+        role: "admin",
+        loyalty_tier: "gold",
+        total_spent: 4850.0,
+        member_since: "2024-01-15T09:00:00Z",
+        order_count: 18,
+        review_count: 12,
+        tier_benefits: {
+          discount_percent: 15,
+          free_shipping: true,
+          priority_support: true,
+          exclusive_access: true,
+        },
+      });
+    }
+
+    if (pathname.includes("/memories")) {
+      return Response.json([
+        {
+          id: "mem-1",
+          category: "preferences",
+          content: "Prefers European fulfillment hubs (Paris & Frankfurt) for priority distribution.",
+          importance: 5,
+          created_at: new Date(Date.now() - 86400000 * 5).toISOString(),
+        },
+        {
+          id: "mem-2",
+          category: "commercial",
+          content: "Targeting 15% Q4 margin uplift on luxury knitwear and accessories.",
+          importance: 4,
+          created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
+        },
+      ]);
+    }
+
     return Response.json(
       {
         detail: "Live orchestrator offline — running in Portfolio Demo Mode.",

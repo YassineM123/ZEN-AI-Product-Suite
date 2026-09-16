@@ -96,16 +96,21 @@ function formatDate(dateStr: string): string {
   }
 }
 
-function getInitials(name: string): string {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
+function getInitials(name?: string): string {
+  if (!name || typeof name !== "string") return "AM";
+  return (
+    name
+      .trim()
+      .split(/\s+/)
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2) || "AM"
+  );
 }
 
-function formatRole(role: string): string {
+function formatRole(role?: string): string {
+  if (!role || typeof role !== "string") return "Administrator";
   return role
     .split("_")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
