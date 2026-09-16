@@ -65,9 +65,10 @@ ZEN AI Suite
 
 ## 🌐 Localhost Port Registry
 
-| Product | Local Port | Stack | Key Features |
+| Product / Component | Local Port | Stack | Key Features |
 | :--- | :--- | :--- | :--- |
-| **ZEN Market Intelligence** | [http://localhost:3002](http://localhost:3002) | Next.js 16 + React 19 + Python LangGraph | Research Dossiers, Multi-Agent Activity Stream, Risk Matrix |
+| **ZEN Suite Central Portal** | [http://localhost:3003](http://localhost:3003) | Next.js 16 + Turbopack | Central Multi-Agent Portal, Live Health Telemetry, Executive Demo Switchers |
+| **ZEN Market Intelligence** | [http://localhost:3002](http://localhost:3002) | Next.js 16 + React 19 + Python LangGraph | Research Dossiers (.MD/JSON), Multi-Agent Activity Stream, Risk Matrix |
 | **ZEN Commerce Intelligence** | [http://localhost:3000](http://localhost:3000) | Next.js 16 + Tailwind v4 + Python/.NET MAF | Operations Command Center, Inventory Telemetry, Dynamic Pricing |
 | **ZEN Sales Agent** | [http://localhost:3001](http://localhost:3001) | Next.js 16 + Cloudflare Edge / Workers | Omnichannel Inbox, WhatsApp & Instagram, Lead Scoring (0-100) |
 
@@ -89,29 +90,29 @@ cp .env.example .env
 
 ### 3. Running the Applications
 
-#### Run Product 01: ZEN Market Intelligence (Web + CLI)
+#### Launch Full Suite Concurrently (Single Command)
 ```bash
-# Launch Web Dashboard (Port 3002)
+npm run dev:all
+```
+*(Spins up the Central Portal on `3003`, Market Intelligence on `3002`, Commerce on `3000`, and Sales Agent on `3001` with formatted colored terminal logs).*
+
+#### Or Run Individual Applications
+
+```bash
+# Central Portal (Port 3003)
+npm run dev:portal
+
+# Product 01: ZEN Market Intelligence (Port 3002)
 npm run dev:market
 
-# Or run Python LangGraph CLI
-cd TradingAgents-main
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install -e .
-python -m cli.main
-```
-
-#### Run Product 02: ZEN Commerce Intelligence
-```bash
-# Launch Operations Dashboard (Port 3000)
+# Product 02: ZEN Commerce Intelligence (Port 3000)
 npm run dev:commerce
-```
 
-#### Run Product 03: ZEN Sales Agent
-```bash
-# Launch Omnichannel Sales Dashboard (Port 3001)
+# Product 03: ZEN Sales Agent (Port 3001)
 npm run dev:sales
+
+# Build all applications for production verification
+npm run build:all
 ```
 
 ---

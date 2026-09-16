@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getDB, getLeadWithSummary } from "@/lib/db";
-import { requireBusinessId } from "@/lib/auth-utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { requireBusinessId, getSafeAuth } from "@/lib/auth-utils";
 import { sendWhatsAppMessage } from "@/lib/worker-proxy";
 
 export async function POST(
@@ -9,7 +8,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

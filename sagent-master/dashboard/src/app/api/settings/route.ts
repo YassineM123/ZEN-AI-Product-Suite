@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB, updateBusinessConfig } from "@/lib/db";
-import { requireBusinessId } from "@/lib/auth-utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { requireBusinessId, getSafeAuth } from "@/lib/auth-utils";
 
 // Note: OpenNext for Cloudflare uses Node.js runtime, not edge
 // See: https://opennext.js.org/cloudflare
@@ -28,7 +27,7 @@ interface SettingsBody {
 
 export async function POST(request: NextRequest) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json(
         { error: "Unauthorized" },

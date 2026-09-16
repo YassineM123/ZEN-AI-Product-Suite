@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB } from "@/lib/db";
-import { getUserBusinessId, addUserToBusiness } from "@/lib/auth-utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { getUserBusinessId, addUserToBusiness, getSafeAuth } from "@/lib/auth-utils";
 
 interface OnboardingBody {
   name: string;
@@ -17,7 +16,7 @@ interface OnboardingBody {
  */
 export async function POST(request: NextRequest) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

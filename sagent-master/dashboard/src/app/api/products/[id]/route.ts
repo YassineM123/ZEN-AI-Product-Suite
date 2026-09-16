@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB, getProductById, updateProduct, deleteProduct, toggleProductStock, saveProductVariants } from "@/lib/db";
-import { requireBusinessId } from "@/lib/auth-utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { requireBusinessId, getSafeAuth } from "@/lib/auth-utils";
 import { triggerEmbeddingsBackground } from "@/lib/worker-proxy";
 
 interface RouteParams {
@@ -14,7 +13,7 @@ interface RouteParams {
  */
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -50,7 +49,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
  */
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -172,7 +171,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
  */
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -208,7 +207,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
  */
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getDB, getEscalationById, resolveEscalation } from "@/lib/db";
-import { requireBusinessId } from "@/lib/auth-utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { requireBusinessId, getSafeAuth } from "@/lib/auth-utils";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -13,7 +12,7 @@ interface RouteParams {
  */
 export async function PATCH(request: Request, { params }: RouteParams) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

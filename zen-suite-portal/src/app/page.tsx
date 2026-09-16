@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Activity,
@@ -18,9 +18,40 @@ import {
   Building2,
   Compass,
   ArrowRight,
+  Play,
+  Server,
+  RefreshCw,
 } from "lucide-react";
 
 export default function ZenSuitePortalPage() {
+  const [portStatuses, setPortStatuses] = useState<Record<number, "online" | "checking" | "ready">>({
+    3000: "ready",
+    3001: "ready",
+    3002: "ready",
+  });
+  const [lastChecked, setLastChecked] = useState<string>("");
+
+  useEffect(() => {
+    setLastChecked(new Date().toLocaleTimeString());
+    // Client-side quick check
+    const checkPort = async (port: number) => {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1500);
+        await fetch(`http://localhost:${port}/favicon.ico`, {
+          mode: "no-cors",
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        setPortStatuses((prev) => ({ ...prev, [port]: "online" }));
+      } catch {
+        setPortStatuses((prev) => ({ ...prev, [port]: "ready" }));
+      }
+    };
+
+    [3000, 3001, 3002].forEach(checkPort);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 flex flex-col font-sans">
       {/* Top Navbar */}
@@ -49,7 +80,7 @@ export default function ZenSuitePortalPage() {
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3 py-1 text-xs text-emerald-400">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>3 Products Operational</span>
+              <span>3 Products Integrated</span>
             </div>
             <a
               href="https://www.zen-groupe.fr"
@@ -91,9 +122,12 @@ export default function ZenSuitePortalPage() {
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400">
                   <Activity className="h-6 w-6" />
                 </div>
-                <span className="rounded-full bg-sky-500/10 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-sky-400 border border-sky-500/20">
-                  PORT 3002
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/10 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-sky-400 border border-sky-500/20">
+                    <span className={`h-1.5 w-1.5 rounded-full ${portStatuses[3002] === 'online' ? 'bg-emerald-400 animate-pulse' : 'bg-sky-400'}`} />
+                    PORT 3002
+                  </span>
+                </div>
               </div>
 
               <div>
@@ -123,7 +157,7 @@ export default function ZenSuitePortalPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-sky-400" />
-                  <span>Structured institutional research dossiers</span>
+                  <span>Structured institutional research dossiers (.MD / JSON)</span>
                 </div>
               </div>
             </div>
@@ -146,9 +180,12 @@ export default function ZenSuitePortalPage() {
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
                   <ShoppingBag className="h-6 w-6" />
                 </div>
-                <span className="rounded-full bg-purple-500/10 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-purple-400 border border-purple-500/20">
-                  PORT 3000
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-500/10 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-purple-400 border border-purple-500/20">
+                    <span className={`h-1.5 w-1.5 rounded-full ${portStatuses[3000] === 'online' ? 'bg-emerald-400 animate-pulse' : 'bg-purple-400'}`} />
+                    PORT 3000
+                  </span>
+                </div>
               </div>
 
               <div>
@@ -201,9 +238,12 @@ export default function ZenSuitePortalPage() {
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
                   <MessageSquare className="h-6 w-6" />
                 </div>
-                <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-emerald-400 border border-emerald-500/20">
-                  PORT 3001
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-emerald-400 border border-emerald-500/20">
+                    <span className={`h-1.5 w-1.5 rounded-full ${portStatuses[3001] === 'online' ? 'bg-emerald-400 animate-pulse' : 'bg-emerald-400'}`} />
+                    PORT 3001
+                  </span>
+                </div>
               </div>
 
               <div>

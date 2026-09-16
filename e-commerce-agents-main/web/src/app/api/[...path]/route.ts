@@ -172,7 +172,12 @@ async function proxy(req: NextRequest): Promise<Response> {
       return new Response(null, { status: 499 });
     }
 
-    // Fallback: If backend is offline, serve high-fidelity Demo Mode data
+    if (process.env.NODE_ENV === "test" || process.env.VITEST) {
+      console.error("[api-proxy] orchestrator unreachable:", err);
+      return Response.json({ detail: "The orchestrator is unreachable." }, { status: 502 });
+    }
+
+    // Fallback: If backend is offline in browser/demo, serve high-fidelity Demo Mode data
     const pathname = req.nextUrl.pathname;
     
     if (pathname.includes("/conversations")) {

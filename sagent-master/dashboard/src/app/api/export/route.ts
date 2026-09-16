@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB, getMessageEvents, getLeads, getEscalations } from "@/lib/db";
-import { requireBusinessId } from "@/lib/auth-utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { requireBusinessId, getSafeAuth } from "@/lib/auth-utils";
 
 function escapeCsv(value: string | null | undefined): string {
   if (!value) return "";
@@ -18,7 +17,7 @@ function escapeCsv(value: string | null | undefined): string {
  */
 export async function GET(request: NextRequest) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

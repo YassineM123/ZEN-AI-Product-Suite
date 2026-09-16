@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB, createProduct, saveProductVariants } from "@/lib/db";
-import { requireBusinessId } from "@/lib/auth-utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { requireBusinessId, getSafeAuth } from "@/lib/auth-utils";
 import { triggerEmbeddingsBackground } from "@/lib/worker-proxy";
 import Papa from "papaparse";
 
@@ -44,7 +43,7 @@ interface GroupedProduct {
  */
 export async function POST(request: NextRequest) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

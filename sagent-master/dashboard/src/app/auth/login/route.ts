@@ -5,10 +5,17 @@
  * Users can sign in with email/password or social providers.
  */
 
-import { getSignInUrl } from '@workos-inc/authkit-nextjs';
 import { redirect } from 'next/navigation';
 
 export const GET = async () => {
-  const signInUrl = await getSignInUrl();
-  return redirect(signInUrl);
+  if (process.env.WORKOS_API_KEY && process.env.WORKOS_CLIENT_ID) {
+    try {
+      const { getSignInUrl } = await import('@workos-inc/authkit-nextjs');
+      const signInUrl = await getSignInUrl();
+      return redirect(signInUrl);
+    } catch {
+      return redirect('/');
+    }
+  }
+  return redirect('/');
 };

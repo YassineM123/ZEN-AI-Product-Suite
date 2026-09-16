@@ -36,17 +36,17 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "Operations",
     items: [
-      { label: "Operations Center", href: "/operations", icon: LayoutDashboard },
-      { label: "Agents Fleet", href: "/agents", icon: Bot },
-      { label: "Autonomous Runs", href: "/runs", icon: Activity },
+      { label: "Operations", href: "/operations", icon: LayoutDashboard },
+      { label: "Agents", href: "/agents", icon: Bot },
+      { label: "Runs", href: "/runs", icon: Activity },
     ],
   },
   {
     label: "Commerce Store",
     items: [
-      { label: "Store Home", href: "/home", icon: ShoppingBag },
-      { label: "AI Concierge Chat", href: "/chat", icon: MessageSquare },
-      { label: "Catalog Products", href: "/products", icon: Package },
+      { label: "Home", href: "/home", icon: ShoppingBag },
+      { label: "Chat", href: "/chat", icon: MessageSquare },
+      { label: "Products", href: "/products", icon: Package },
       { label: "Cart", href: "/cart", icon: ShoppingCart, cartBadge: true },
       { label: "Orders", href: "/orders", icon: Package },
     ],

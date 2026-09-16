@@ -85,6 +85,70 @@ export const ResearchReportView: React.FC<ResearchReportViewProps> = ({ report }
     downloadAnchor.remove();
   };
 
+  const downloadReportMarkdown = () => {
+    const mdContent = `# ZEN AI Suite — Institutional Research Dossier
+**Entity:** ${report.companyName} (${report.ticker})  
+**Exchange / Sector:** ${report.exchange} | ${report.sector}  
+**Generated Date:** ${report.generatedAt}  
+**ZEN Groupe Telemetry:** [www.zen-groupe.fr](https://www.zen-groupe.fr)
+
+---
+
+## 🏛️ Executive Consensus
+- **Research Signal:** ${report.researchSignal}
+- **Risk Assessment:** ${report.riskLevel}
+- **Consensus Confidence:** ${report.researchConfidence}%
+- **Market Outlook:** ${report.marketOutlook}
+- **Current Price:** $${report.currentPrice} (${report.priceChangePercent >= 0 ? "+" : ""}${report.priceChangePercent}%)
+
+---
+
+## ⚔️ Adversarial Bull vs. Bear Synthesis
+### Bull Thesis (Confidence: ${report.bullThesis.confidenceScore}%)
+${report.bullThesis.thesis}
+
+**Key Arguments:**
+${report.bullThesis.keyArguments.map((p) => `- ${p}`).join("\n")}
+
+### Bear Counter-Thesis (Confidence: ${report.bearThesis.confidenceScore}%)
+${report.bearThesis.thesis}
+
+**Key Headwinds:**
+${report.bearThesis.keyArguments.map((p) => `- ${p}`).join("\n")}
+
+---
+
+## 📊 Technical & Quantitative Telemetry
+- **RSI (14-Day):** ${report.technicals.rsi14}
+- **MACD Posture:** ${report.technicals.macd.trend}
+- **50 DMA / 200 DMA:** $${report.technicals.dma50} / $${report.technicals.dma200}
+- **Support / Resistance:** $${report.technicals.supportLevel} / $${report.technicals.resistanceLevel}
+
+---
+
+## 🛡️ Risk Matrix & Value at Risk (VaR 95%)
+- **VaR (95% Confidence):** ${report.riskAssessment.valueAtRisk95}
+- **Max Drawdown (1Y):** ${report.riskAssessment.maxDrawdown1Y}
+${report.riskAssessment.risks.map((r) => `- **${r.riskName}** (${r.category} - ${r.severity}): ${r.mitigant}`).join("\n")}
+
+---
+
+## 🎯 Actionable Conclusion & Posture
+**Posture:** ${report.researchConclusion.actionablePosture} (Horizon: ${report.researchConclusion.horizonWeeks} Weeks)  
+${report.researchConclusion.synthesis}
+`;
+
+    const blob = new Blob([mdContent], { type: "text/markdown;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", url);
+    downloadAnchor.setAttribute("download", `ZEN_Market_Intelligence_${report.ticker}_Dossier.md`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="space-y-6">
       {/* Executive Header Card */}
@@ -107,11 +171,18 @@ export const ResearchReportView: React.FC<ResearchReportViewProps> = ({ report }
 
           <div className="flex flex-wrap items-center gap-2">
             <button
+              onClick={downloadReportMarkdown}
+              className="flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-300 hover:bg-sky-500/20 transition-colors shadow-sm"
+            >
+              <FileText className="h-3.5 w-3.5 text-sky-400" />
+              Export Dossier (.MD)
+            </button>
+            <button
               onClick={downloadReportJson}
               className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
             >
               <Download className="h-3.5 w-3.5 text-slate-400" />
-              Export Dossier (JSON)
+              JSON Data
             </button>
           </div>
         </div>

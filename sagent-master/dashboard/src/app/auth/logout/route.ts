@@ -9,10 +9,13 @@ import { signOut } from '@workos-inc/authkit-nextjs';
 import { redirect } from 'next/navigation';
 
 export const GET = async (request: Request) => {
-  console.log("[LOGOUT ROUTE] GET /auth/logout hit!");
-  console.log("[LOGOUT ROUTE] Timestamp:", new Date().toISOString());
-  console.log("[LOGOUT ROUTE] Referer:", request.headers.get('referer'));
-  console.log("[LOGOUT ROUTE] User-Agent:", request.headers.get('user-agent'));
-  await signOut();
+  if (process.env.WORKOS_API_KEY && process.env.WORKOS_CLIENT_ID) {
+    try {
+      const { signOut } = await import('@workos-inc/authkit-nextjs');
+      await signOut();
+    } catch {
+      // Ignore in demo / fallback mode
+    }
+  }
   return redirect('/');
 };

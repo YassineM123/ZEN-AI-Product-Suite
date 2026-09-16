@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
 import { getDB, getProducts, getVariantsForProduct } from "@/lib/db";
-import { requireBusinessId } from "@/lib/auth-utils";
-import { withAuth } from "@workos-inc/authkit-nextjs";
+import { requireBusinessId, getSafeAuth } from "@/lib/auth-utils";
 
 /**
  * GET /api/products/export?format=csv|xlsx
@@ -9,7 +8,7 @@ import { withAuth } from "@workos-inc/authkit-nextjs";
  */
 export async function GET(request: NextRequest) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return new Response("Unauthorized", { status: 401 });
     }

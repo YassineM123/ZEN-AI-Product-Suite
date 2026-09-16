@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
-import { withAuth } from "@workos-inc/authkit-nextjs";
 import { getDB, resolveDlqEntry } from "@/lib/db";
-import { requireBusinessId } from "@/lib/auth-utils";
+import { requireBusinessId, getSafeAuth } from "@/lib/auth-utils";
 
 export async function PATCH(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { user } = await withAuth();
+    const { user } = await getSafeAuth();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
