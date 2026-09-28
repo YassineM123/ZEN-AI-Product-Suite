@@ -172,6 +172,7 @@ ${report.researchConclusion.synthesis}
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={downloadReportMarkdown}
+              suppressHydrationWarning
               className="flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-300 hover:bg-sky-500/20 transition-colors shadow-sm"
             >
               <FileText className="h-3.5 w-3.5 text-sky-400" />
@@ -179,6 +180,7 @@ ${report.researchConclusion.synthesis}
             </button>
             <button
               onClick={downloadReportJson}
+              suppressHydrationWarning
               className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
             >
               <Download className="h-3.5 w-3.5 text-slate-400" />
@@ -240,6 +242,7 @@ ${report.researchConclusion.synthesis}
       <div className="flex items-center gap-1 border-b border-white/[0.08] pb-2">
         <button
           onClick={() => setActiveTab("all")}
+          suppressHydrationWarning
           className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
             activeTab === "all"
               ? "bg-slate-800 text-white"
@@ -250,6 +253,7 @@ ${report.researchConclusion.synthesis}
         </button>
         <button
           onClick={() => setActiveTab("technicals")}
+          suppressHydrationWarning
           className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
             activeTab === "technicals"
               ? "bg-slate-800 text-white"
@@ -260,6 +264,7 @@ ${report.researchConclusion.synthesis}
         </button>
         <button
           onClick={() => setActiveTab("fundamentals")}
+          suppressHydrationWarning
           className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
             activeTab === "fundamentals"
               ? "bg-slate-800 text-white"
@@ -270,6 +275,7 @@ ${report.researchConclusion.synthesis}
         </button>
         <button
           onClick={() => setActiveTab("debate")}
+          suppressHydrationWarning
           className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
             activeTab === "debate"
               ? "bg-slate-800 text-white"
@@ -280,6 +286,7 @@ ${report.researchConclusion.synthesis}
         </button>
         <button
           onClick={() => setActiveTab("risks")}
+          suppressHydrationWarning
           className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
             activeTab === "risks"
               ? "bg-slate-800 text-white"

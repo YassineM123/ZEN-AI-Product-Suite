@@ -86,6 +86,7 @@ export default function MarketIntelligenceDashboard() {
                 <button
                   key={t}
                   onClick={() => handleSelectTicker(t)}
+                  suppressHydrationWarning
                   className={`flex items-center gap-2 rounded-md px-2.5 py-1 text-xs font-mono transition-colors ${
                     isSelected
                       ? "bg-sky-500/20 text-sky-300 border border-sky-500/30"
@@ -135,11 +136,13 @@ export default function MarketIntelligenceDashboard() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search ticker (e.g. NVDA, AAPL)..."
+                suppressHydrationWarning
                 className="w-full rounded-lg border border-white/10 bg-slate-900/90 pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
               />
             </div>
             <button
               type="submit"
+              suppressHydrationWarning
               className="rounded-lg border border-sky-500/30 bg-sky-600 px-3.5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-sky-500 transition-colors"
             >
               Analyze
@@ -191,6 +194,7 @@ export default function MarketIntelligenceDashboard() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setActiveView(activeView === "report" ? "activity" : "report")}
+                suppressHydrationWarning
                 className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-800 transition-colors"
               >
                 {activeView === "report" ? (

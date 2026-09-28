@@ -50,7 +50,7 @@ const services = [
     color: '\x1b[32m', // Green
     dir: path.join(rootDir, 'sagent-master', 'dashboard'),
     cmd: npmCmd,
-    args: ['run', 'dev', '--', '-p', '3001'],
+    args: ['run', 'dev'],
     port: 3001,
     desc: 'ZEN Sales Agent (http://localhost:3001)',
   },
